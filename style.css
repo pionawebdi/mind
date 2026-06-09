@@ -1,0 +1,687 @@
+/* ===== 전역 스타일 ===== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --purple-deep:   #5B21B6;
+  --purple-main:   #7C3AED;
+  --purple-mid:    #8B5CF6;
+  --purple-light:  #A78BFA;
+  --purple-pale:   #EDE9FE;
+  --pink-accent:   #EC4899;
+  --yellow-accent: #F59E0B;
+  --green-accent:  #10B981;
+  --white:         #FFFFFF;
+  --gray-100:      #F3F4F6;
+  --gray-400:      #9CA3AF;
+  --gray-600:      #4B5563;
+  --text-dark:     #1F1F3A;
+  --shadow:        0 8px 32px rgba(124, 58, 237, 0.18);
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Noto Sans KR', sans-serif;
+  background: linear-gradient(145deg, #F5F0FF 0%, #EDE9FE 40%, #FDF2F8 100%);
+  color: var(--text-dark);
+  overflow: hidden;
+}
+
+/* ===== 화면(스크린) 기본 구조 ===== */
+.screen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow-y: auto;
+  padding: 16px 0 40px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(20px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.screen.active {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateY(0);
+}
+
+.screen-inner {
+  width: 100%;
+  max-width: 390px;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+/* ===== 버튼 공통 ===== */
+.btn {
+  width: 100%;
+  padding: 16px 24px;
+  border: none;
+  border-radius: 24px;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, opacity 0.12s ease;
+  outline: none;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--purple-main), var(--purple-light));
+  color: var(--white);
+  box-shadow: 0 6px 20px rgba(124, 58, 237, 0.35);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 8px 28px rgba(124, 58, 237, 0.45);
+}
+
+.btn-secondary {
+  background: var(--white);
+  color: var(--purple-main);
+  border: 2px solid var(--purple-light);
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.12);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--purple-mid);
+  font-weight: 500;
+  font-size: 14px;
+  padding: 10px 16px;
+  width: auto;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.btn-large {
+  font-size: 18px;
+  padding: 18px 24px;
+}
+
+.btn-back {
+  align-self: flex-start;
+  background: none;
+  border: none;
+  color: var(--purple-main);
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 4px 0;
+}
+
+/* ===== 스트릭 배지 ===== */
+.streak-badge {
+  align-self: flex-end;
+  background: linear-gradient(135deg, #FEF3C7, #FDE68A);
+  color: #92400E;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 999px;
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+  margin-top: 8px;
+}
+
+/* ===== 캐릭터 ===== */
+.character-wrap {
+  position: relative;
+  margin: 8px 0 4px;
+}
+
+.character {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: charFloat 3s ease-in-out infinite;
+}
+
+@keyframes charFloat {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-10px); }
+}
+
+/* 얼굴 */
+.char-face {
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(135deg, #A78BFA, #7C3AED);
+  border-radius: 50%;
+  position: relative;
+  box-shadow: 0 6px 24px rgba(124, 58, 237, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.char-eyes {
+  position: absolute;
+  top: 32px;
+  display: flex;
+  gap: 20px;
+}
+
+.char-eye {
+  width: 12px;
+  height: 14px;
+  background: white;
+  border-radius: 50%;
+  position: relative;
+}
+
+.char-eye::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 7px;
+  height: 7px;
+  background: #1F1F3A;
+  border-radius: 50%;
+}
+
+.char-blush {
+  position: absolute;
+  top: 52px;
+  width: 20px;
+  height: 10px;
+  background: rgba(236, 72, 153, 0.4);
+  border-radius: 50%;
+}
+
+.char-blush.left  { left: 14px; }
+.char-blush.right { right: 14px; }
+
+.char-mouth {
+  position: absolute;
+  bottom: 22px;
+  width: 36px;
+  height: 18px;
+  border-bottom: 4px solid white;
+  border-radius: 0 0 18px 18px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* 몸통 */
+.char-body {
+  width: 70px;
+  height: 50px;
+  background: linear-gradient(135deg, #A78BFA, #7C3AED);
+  border-radius: 35px 35px 20px 20px;
+  margin-top: -10px;
+}
+
+/* 손 */
+.char-hands {
+  position: absolute;
+  bottom: 10px;
+  width: 120px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.char-hand {
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(135deg, #A78BFA, #7C3AED);
+  border-radius: 50%;
+}
+
+/* 그림자 */
+.character-shadow {
+  width: 80px;
+  height: 16px;
+  background: rgba(124, 58, 237, 0.2);
+  border-radius: 50%;
+  margin-top: 4px;
+  animation: shadowPulse 3s ease-in-out infinite;
+}
+
+@keyframes shadowPulse {
+  0%, 100% { transform: scaleX(1); opacity: 0.2; }
+  50%       { transform: scaleX(0.75); opacity: 0.12; }
+}
+
+/* ===== 레벨 카드 ===== */
+.level-card {
+  width: 100%;
+  background: var(--white);
+  border-radius: 20px;
+  padding: 18px 20px;
+  box-shadow: var(--shadow);
+}
+
+.level-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.level-label {
+  font-size: 13px;
+  color: var(--gray-400);
+  font-weight: 500;
+}
+
+.level-num {
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--purple-main);
+}
+
+.xp-bar-wrap {
+  width: 100%;
+  height: 12px;
+  background: var(--purple-pale);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.xp-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--purple-main), var(--purple-light));
+  border-radius: 999px;
+  transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.xp-text {
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--gray-400);
+  text-align: right;
+}
+
+/* ===== 도전 화면 ===== */
+.challenge-header {
+  text-align: center;
+  margin: 8px 0 4px;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 900;
+  line-height: 1.4;
+  color: var(--text-dark);
+}
+
+.subtitle {
+  font-size: 14px;
+  color: var(--gray-400);
+  margin-top: 6px;
+}
+
+/* 텍스트 영역 */
+.input-wrap {
+  width: 100%;
+  position: relative;
+}
+
+.input-textarea {
+  width: 100%;
+  height: 130px;
+  border: 2px solid var(--purple-pale);
+  border-radius: 16px;
+  padding: 14px 16px;
+  font-family: inherit;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text-dark);
+  background: var(--white);
+  resize: none;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.input-textarea:focus {
+  border-color: var(--purple-light);
+  box-shadow: 0 0 0 4px rgba(167, 139, 250, 0.15);
+}
+
+.input-textarea::placeholder {
+  color: var(--gray-400);
+  font-size: 13px;
+}
+
+.char-count {
+  text-align: right;
+  font-size: 12px;
+  color: var(--gray-400);
+  margin-top: 4px;
+}
+
+/* 감정 선택 */
+.emotion-section {
+  width: 100%;
+}
+
+.emotion-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--gray-600);
+  margin-bottom: 10px;
+}
+
+.emotion-buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.btn-emotion {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 12px 6px;
+  background: var(--white);
+  border: 2px solid var(--purple-pale);
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: inherit;
+}
+
+.btn-emotion:hover {
+  border-color: var(--purple-light);
+  background: var(--purple-pale);
+}
+
+.btn-emotion.selected {
+  border-color: var(--purple-main);
+  background: var(--purple-pale);
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
+}
+
+.emotion-emoji {
+  font-size: 24px;
+  line-height: 1;
+}
+
+.emotion-text {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gray-600);
+}
+
+/* ===== 칭찬 결과 화면 ===== */
+.praise-card {
+  width: 100%;
+  background: var(--white);
+  border-radius: 24px;
+  padding: 28px 24px;
+  box-shadow: var(--shadow);
+  text-align: center;
+  margin-top: 16px;
+  animation: cardAppear 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes cardAppear {
+  from { transform: scale(0.85); opacity: 0; }
+  to   { transform: scale(1);    opacity: 1; }
+}
+
+.praise-icon {
+  font-size: 48px;
+  margin-bottom: 12px;
+  animation: iconBounce 0.6s ease 0.3s both;
+}
+
+@keyframes iconBounce {
+  0%   { transform: scale(0); }
+  60%  { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+.praise-achievement {
+  font-size: 15px;
+  color: var(--gray-400);
+  font-style: italic;
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+.praise-achievement::before { content: '"'; }
+.praise-achievement::after  { content: '"'; }
+
+.praise-divider {
+  width: 40px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--purple-main), var(--purple-light));
+  border-radius: 999px;
+  margin: 0 auto 16px;
+}
+
+.praise-message {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-dark);
+  line-height: 1.6;
+}
+
+.praise-emotion-tag {
+  display: inline-block;
+  margin-top: 16px;
+  background: var(--purple-pale);
+  color: var(--purple-main);
+  font-size: 13px;
+  font-weight: 700;
+  padding: 6px 16px;
+  border-radius: 999px;
+}
+
+/* 경험치 획득 */
+.xp-gain {
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--yellow-accent);
+  text-shadow: 0 2px 8px rgba(245, 158, 11, 0.4);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.xp-gain.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 결과 버튼 */
+.result-buttons {
+  width: 100%;
+  display: flex;
+  gap: 12px;
+}
+
+.result-buttons .btn {
+  flex: 1;
+}
+
+/* ===== 레벨업 팝업 ===== */
+.levelup-popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(30, 10, 60, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  padding: 20px;
+}
+
+.levelup-popup.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.levelup-inner {
+  background: var(--white);
+  border-radius: 28px;
+  padding: 36px 28px;
+  text-align: center;
+  max-width: 320px;
+  width: 100%;
+  box-shadow: 0 20px 60px rgba(124, 58, 237, 0.35);
+  animation: popupIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes popupIn {
+  from { transform: scale(0.7); }
+  to   { transform: scale(1); }
+}
+
+.levelup-star {
+  font-size: 56px;
+  animation: spin 0.6s ease;
+}
+
+@keyframes spin {
+  from { transform: rotate(-30deg) scale(0.5); }
+  to   { transform: rotate(0) scale(1); }
+}
+
+.levelup-title {
+  font-size: 28px;
+  font-weight: 900;
+  color: var(--purple-main);
+  margin: 10px 0 6px;
+}
+
+.levelup-level {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--yellow-accent);
+  margin-bottom: 12px;
+}
+
+.levelup-message {
+  font-size: 15px;
+  color: var(--gray-600);
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+
+/* ===== 컨페티 ===== */
+.confetti-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 50;
+  overflow: hidden;
+}
+
+.confetti-piece {
+  position: absolute;
+  top: -20px;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  animation: confettiFall linear forwards;
+}
+
+@keyframes confettiFall {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+/* ===== 기록 화면 ===== */
+.history-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-bottom: 16px;
+}
+
+.history-card {
+  background: var(--white);
+  border-radius: 18px;
+  padding: 16px 18px;
+  box-shadow: 0 4px 16px rgba(124, 58, 237, 0.1);
+  animation: cardAppear 0.35s ease;
+}
+
+.history-date {
+  font-size: 12px;
+  color: var(--gray-400);
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.history-achievement {
+  font-size: 14px;
+  color: var(--text-dark);
+  font-weight: 500;
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+.history-praise {
+  font-size: 13px;
+  color: var(--purple-main);
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.history-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.history-emotion {
+  font-size: 12px;
+  background: var(--purple-pale);
+  color: var(--purple-deep);
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+.history-xp {
+  font-size: 12px;
+  color: var(--yellow-accent);
+  font-weight: 700;
+}
+
+.history-empty {
+  text-align: center;
+  color: var(--gray-400);
+  font-size: 15px;
+  padding: 40px 0;
+  line-height: 2;
+}
+
+/* ===== 반응형 안전 여백 ===== */
+@media (max-height: 700px) {
+  .character-wrap { margin: 0; }
+  .char-face { width: 80px; height: 80px; }
+  .char-body { width: 56px; height: 40px; }
+}
